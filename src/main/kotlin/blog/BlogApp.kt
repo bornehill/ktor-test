@@ -11,6 +11,7 @@ import io.ktor.util.*
 import io.ktor.content.TextContent
 import java.io.*;
 import httpbin.*;
+import routingapi.*;
 
 fun Application.main() {
     install(DefaultHeaders)
@@ -27,8 +28,6 @@ fun Application.main() {
         }        
     }    
     install(Routing) {
-        get("/") {
-            call.respondText("My Example Blog2", ContentType.Text.Html)
-        }
+        blogRouting()
     }
 }
