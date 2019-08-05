@@ -18,16 +18,40 @@ fun Routing.blogRouting() {
             get {
                 call.respond(allTasks)
             }
-        }        
+            get("{id}") {
+                val id = call.parameters["id"]!!
+                try{
+                    val task = allTasks[id.toInt()]
+                    call.respond(task)
+                }catch(e: Throwable){
+                    call.respond(HttpStatusCode.NotFound)
+                }
+            }
+        }
+        route("allTasks", HttpMethod.Post){
+            handle {
+                call.respond(HttpStatusCode.Unauthorized)
+            }
+        }
     }
 }
 
 val task1 = Task(
+    1,
     "Add RestAPI data access",
      "Add database suport",
      "Me",
     LocalDate.of(2019, 12, 18),
-    1
+    Importance.Medium
 )
 
-val allTasks = listOf(task1)
+val task2 = Task(
+    2,
+    "Add RestAPI new endpoint",
+     "Add search by id",
+     "Me",
+    LocalDate.of(2019, 12, 19),
+    Importance.High
+)
+
+val allTasks = listOf(task1, task2)
