@@ -9,13 +9,27 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.util.*
 import io.ktor.content.TextContent
-import java.io.*;
-import httpbin.*;
-import routingapi.*;
+import io.ktor.jackson.jackson
+import com.fasterxml.jackson.core.util.*
+import com.fasterxml.jackson.databind.*
+import com.fasterxml.jackson.datatype.jsr310.*
+import java.io.*
+import httpbin.*
+import blog.routingapi.*
 
 fun Application.main() {
+    install(Routing) {
+        blogRouting()
+    }
     install(DefaultHeaders)
     install(CallLogging)
+    install(ContentNegotiation){
+        jackson {
+            enable(SerializationFeature.INDENT_OUTPUT)
+            registerModule(JavaTimeModule())
+            disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+        }
+    }
     // Here we handle unhandled exceptions from routes
     install(StatusPages) {
         exception<Throwable> { cause ->
@@ -27,7 +41,4 @@ fun Application.main() {
             call.respond(TextContent("Opps ${it.value} ${it.description}", ContentType.Text.Plain.withCharset(Charsets.UTF_8), it))
         }        
     }    
-    install(Routing) {
-        blogRouting()
-    }
 }
