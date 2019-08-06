@@ -11,12 +11,12 @@ data class HttpBinError(
 )
 
 data class Task(
-        val Id: Int,
+        val id: Int,
         val title: String,
         val details: String,
         val assignedTo: String,
-        val LocalDate: LocalDate,
-        val Importance: Importance
+        val dueDate: LocalDate,
+        val importance: Importance
 )
 
 enum class Importance {

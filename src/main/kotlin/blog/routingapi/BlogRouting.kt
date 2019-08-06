@@ -2,6 +2,7 @@ package blog.routingapi;
 
 import io.ktor.routing.*
 import io.ktor.response.*
+import io.ktor.request.*
 import io.ktor.application.*
 import io.ktor.http.*
 import httpbin.*
@@ -27,10 +28,13 @@ fun Routing.blogRouting() {
                     call.respond(HttpStatusCode.NotFound)
                 }
             }
-        }
-        route("allTasks", HttpMethod.Post){
-            handle {
-                call.respond(HttpStatusCode.Unauthorized)
+            post {
+                val receiveTask = call.receive<Task>();
+
+                val newTask = Task(allTasks.size +1, receiveTask.title, receiveTask.details, 
+                    receiveTask.assignedTo, receiveTask.dueDate, receiveTask.importance)
+                allTasks = allTasks + newTask
+                call.respond(HttpStatusCode.Created, allTasks)
             }
         }
     }
@@ -54,4 +58,4 @@ val task2 = Task(
     Importance.High
 )
 
-val allTasks = listOf(task1, task2)
+var allTasks = listOf(task1, task2)
