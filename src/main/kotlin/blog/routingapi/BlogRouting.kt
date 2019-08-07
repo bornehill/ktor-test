@@ -56,6 +56,23 @@ fun Routing.blogRouting() {
 
                 call.respond(HttpStatusCode.NoContent)
             }
+
+            delete("{id}") {
+                val id = call.parameters["id"]!!
+                if(id == null){
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@delete
+                }
+
+                val foundItem = allTasks.getOrNull(id.toInt())
+                if(foundItem == null){
+                    call.respond(HttpStatusCode.NotFound)
+                    return@delete
+                }
+
+                allTasks = allTasks.filter{ it.id - 1 != id.toInt() }
+                call.respond(HttpStatusCode.NoContent)
+            }            
         }
     }
 }
