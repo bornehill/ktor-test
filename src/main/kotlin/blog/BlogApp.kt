@@ -10,6 +10,7 @@ import io.ktor.server.netty.*
 import io.ktor.util.*
 import io.ktor.content.TextContent
 import io.ktor.jackson.jackson
+import io.ktor.jackson.*
 import com.fasterxml.jackson.core.util.*
 import com.fasterxml.jackson.databind.*
 import com.fasterxml.jackson.datatype.jsr310.*
@@ -17,13 +18,21 @@ import java.io.*
 import httpbin.*
 import blog.routingapi.*
 
+val headerContentV1 = ContentType("application", "vnd.todoapi.v1+json")
+
 fun Application.main() {
     install(Routing) {
+        trace { application.log.trace(it.buildText()) }
         blogRouting()
     }
     install(DefaultHeaders)
     install(CallLogging)
     install(ContentNegotiation){
+        jackson(headerContentV1) {
+            enable(SerializationFeature.INDENT_OUTPUT)
+            disableDefaultTyping()
+        }
+
         jackson {
             enable(SerializationFeature.INDENT_OUTPUT)
             registerModule(JavaTimeModule())

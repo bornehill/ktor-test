@@ -15,6 +15,13 @@ fun Routing.blogRouting() {
                 call.respondText("Respond from BlogRuting", ContentType.Text.Html)
             }
         }
+
+       accept(headerContentV1) {
+           get("allTasksHeader") {
+               call.respond(allTasks)
+           }
+       }
+
         route("allTasks"){
             get {
                 call.respond(allTasks)
@@ -96,3 +103,5 @@ val task2 = Task(
 )
 
 var allTasks = listOf(task1, task2)
+
+val headerContentV1 = ContentType("application", "vnd.todoapi.v1+json")
