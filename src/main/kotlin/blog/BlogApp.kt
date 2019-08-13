@@ -30,7 +30,8 @@ fun Application.main() {
     install(ContentNegotiation){
         jackson(headerContentV1) {
             enable(SerializationFeature.INDENT_OUTPUT)
-            disableDefaultTyping()
+            registerModule(JavaTimeModule())
+            disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         }
 
         jackson {
