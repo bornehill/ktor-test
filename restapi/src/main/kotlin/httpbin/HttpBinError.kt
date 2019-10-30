@@ -1,4 +1,4 @@
-package httpbin
+package com.myktortest.httpbin
 
 import io.ktor.http.*
 import java.time.LocalDate

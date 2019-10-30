@@ -1,4 +1,4 @@
-package blog
+package com.myktortest.blog
 
 import io.ktor.application.*
 import io.ktor.features.*
@@ -15,8 +15,8 @@ import com.fasterxml.jackson.core.util.*
 import com.fasterxml.jackson.databind.*
 import com.fasterxml.jackson.datatype.jsr310.*
 import java.io.*
-import httpbin.*
-import blog.routingapi.*
+import com.myktortest.httpbin.*
+import com.myktortest.blog.routingapi.*
 
 val headerContentV1 = ContentType("application", "vnd.todoapi.v1+json")
 

@@ -1,11 +1,11 @@
-package blog.routingapi;
+package com.myktortest.blog.routingapi;
 
 import io.ktor.routing.*
 import io.ktor.response.*
 import io.ktor.request.*
 import io.ktor.application.*
 import io.ktor.http.*
-import httpbin.*
+import com.myktortest.httpbin.*
 import java.time.LocalDate
 
 fun Routing.blogRouting() {
@@ -86,7 +86,7 @@ fun Routing.blogRouting() {
 
 val task1 = Task(
     1,
-    "Add RestAPI data access",
+    "Add to RestAPI data access",
      "Add database suport",
      "Me",
     LocalDate.of(2019, 12, 18),
@@ -95,7 +95,7 @@ val task1 = Task(
 
 val task2 = Task(
     2,
-    "Add RestAPI new endpoint",
+    "Add to RestAPI new endpoint",
      "Add search by id",
      "Me",
     LocalDate.of(2019, 12, 19),
