@@ -1,3 +1,4 @@
 rootProject.name = "myTestKtor"
 
 include("restapi")
+include("web")
