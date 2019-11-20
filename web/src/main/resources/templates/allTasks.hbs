@@ -2,16 +2,16 @@
 {{<base}}
     {{$header}}
         {{<header}}
-            {{$title}}Todos{{/title}}
+            {{$title}}Tasks{{/title}}
         {{/header}}
     {{/header}}
 
     {{$content}}
-        <h1>Hello - {{ todos.userName }}</h1>
+        <h1>Your tasks - {{ tasks.userName }}</h1>
         <ul>
-            {{#todos.todoItems}}
+            {{#tasks.taskItems}}
                 <li>{{title}}</li>
-            {{/todos.todoItems}}
+            {{/tasks.taskItems}}
         </ul>
     {{/content}}
 {{/base}}

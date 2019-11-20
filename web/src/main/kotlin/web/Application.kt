@@ -9,8 +9,17 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.util.*
 import java.io.*
+import com.github.mustachejava.DefaultMustacheFactory
+import io.ktor.mustache.Mustache
+import io.ktor.sessions.SessionStorageMemory
+import io.ktor.sessions.Sessions
+import io.ktor.sessions.cookie
 
 fun Application.main() {
+    install(Mustache) {
+        mustacheFactory = DefaultMustacheFactory("templates")
+    }
+        
     install(Routing) {
         runWeb()
         staticResources()
