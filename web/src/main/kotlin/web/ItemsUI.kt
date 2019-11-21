@@ -9,10 +9,11 @@ import io.ktor.sessions.get
 import io.ktor.sessions.sessions
 import io.ktor.sessions.set
 import java.time.LocalDate
+import com.myktortest.shared.*
 import com.myktortest.web.viewmodels.*
 import io.ktor.mustache.MustacheContent
 
-val task = ItemVM(
+val task = Task(
     1,
     "Add database processing",
     "Add backend support to this code",
@@ -21,7 +22,7 @@ val task = ItemVM(
     Importance.High
 )
 
-val task2 = ItemVM(
+val task2 = Task(
     2,
     "Add api development",
     "Add backend support to this code",
@@ -41,7 +42,7 @@ fun Routing.runWeb() {
 
             //todos = listOf(todo, todo)
 
-            val taskVM = TaskVM(tasks, UserSession("Kevin Smith"))
+            val taskVM = TaskVM(tasks, User("Kevin Smith"))
             // getClientCredential("http://localhost:5000/connect/token", "todolistClient", "superSecretPassword", listOf("todolistAPI.read", "todolistAPI.write"))
             call.respond(
                 MustacheContent("allTasks.hbs", mapOf("tasks" to taskVM))

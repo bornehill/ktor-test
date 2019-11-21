@@ -6,6 +6,7 @@ import io.ktor.request.*
 import io.ktor.application.*
 import io.ktor.http.*
 import com.myktortest.httpbin.*
+import com.myktortest.shared.*
 import java.time.LocalDate
 
 fun Routing.blogRouting() {

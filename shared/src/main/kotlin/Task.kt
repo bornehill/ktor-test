@@ -1,9 +1,8 @@
-package com.myktortest.web.viewmodels
+package com.myktortest.shared
 
 import java.time.LocalDate
-import com.myktortest.web.UserSession
 
-data class ItemVM(
+data class Task(
         val id: Int,
         val title: String,
         val details: String,
@@ -14,9 +13,4 @@ data class ItemVM(
 
 enum class Importance {
     Low, Medium, High
-}
-
-data class TaskVM(private val items: List<ItemVM>, private val user: UserSession) {
-    val userName = user.name
-    val taskItems = items
 }

@@ -33,10 +33,29 @@ subprojects {
     }
 }
 
-project(":restapi") {
+project(":shared") {
 
 }
 
-project(":web") {
+project(":repository") {
 
+}
+
+project(":dataaccess-service") {
+    dependencies {
+        implementation(project(":shared"))
+        implementation(project(":repository"))
+    }
+}
+
+project(":restapi") {
+    dependencies {
+        implementation(project(":shared"))
+    }
+}
+
+project(":web") {
+    dependencies {
+        implementation(project(":shared"))
+    }
 }

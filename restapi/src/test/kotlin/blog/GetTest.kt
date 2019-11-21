@@ -5,6 +5,7 @@ import io.ktor.http.*
 import io.ktor.server.testing.*
 import kotlin.test.*
 import com.myktortest.httpbin.*
+import com.myktortest.shared.*
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.*
