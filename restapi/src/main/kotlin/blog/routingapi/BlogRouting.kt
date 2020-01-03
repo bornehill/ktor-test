@@ -7,9 +7,10 @@ import io.ktor.application.*
 import io.ktor.http.*
 import com.myktortest.httpbin.*
 import com.myktortest.shared.*
+import com.myktortest.dataaccess.ITaskService
 import java.time.LocalDate
 
-fun Routing.blogRouting() {
+fun Routing.blogRouting(taskService: ITaskService) {
     route("api"){
         route("blog"){
             get {
@@ -25,12 +26,13 @@ fun Routing.blogRouting() {
 
         route("allTasks"){
             get {
-                call.respond(allTasks)
+                val tasks = taskService.getAll()
+                call.respond(tasks)
             }
             get("{id}") {
                 val id = call.parameters["id"]!!
                 try{
-                    val task = allTasks[id.toInt()]
+                    val task = taskService.getTask(id.toInt())
                     call.respond(task)
                 }catch(e: Throwable){
                     call.respond(HttpStatusCode.NotFound)

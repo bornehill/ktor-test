@@ -12,28 +12,9 @@ import java.time.LocalDate
 import com.myktortest.shared.*
 import com.myktortest.web.viewmodels.*
 import io.ktor.mustache.MustacheContent
+import com.myktortest.dataaccess.ITaskService
 
-val task = Task(
-    1,
-    "Add database processing",
-    "Add backend support to this code",
-    "Kevin",
-    LocalDate.of(2018, 12, 18),
-    Importance.High
-)
-
-val task2 = Task(
-    2,
-    "Add api development",
-    "Add backend support to this code",
-    "Other",
-    LocalDate.of(2018, 12, 18),
-    Importance.Medium
-)
-
-var tasks = listOf(task, task2)
-
-fun Routing.runWeb() {
+fun Routing.runWeb(taskService: ITaskService) {
     route("api"){        
         get("allItems") {
             // when {
@@ -42,7 +23,7 @@ fun Routing.runWeb() {
 
             //todos = listOf(todo, todo)
 
-            val taskVM = TaskVM(tasks, User("Kevin Smith"))
+            val taskVM = TaskVM(taskService.getAll(), User("Kevin Smith"))
             // getClientCredential("http://localhost:5000/connect/token", "todolistClient", "superSecretPassword", listOf("todolistAPI.read", "todolistAPI.write"))
             call.respond(
                 MustacheContent("allTasks.hbs", mapOf("tasks" to taskVM))

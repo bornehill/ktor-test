@@ -10,7 +10,7 @@ val task1 = Task(
     "Add backend support to this code",
     "Kevin",
     LocalDate.of(2018, 12, 18),
-    Importance.HIGH
+    Importance.High
 )
 
 val task2 = Task(
@@ -19,7 +19,7 @@ val task2 = Task(
     "Add backend support to this code",
     "Kevin",
     LocalDate.of(2018, 12, 18),
-    Importance.HIGH
+    Importance.High
 )
 
 val tasks = listOf(task1, task2)
@@ -41,8 +41,8 @@ class TaskService(val taskListRepository: ITaskListRepository) : ITaskService {
         return tasks
     }
 
-    override fun gettask(id: Int): Task {
-        return tasks[id]
+    override fun getTask(id: Int): Task {
+        return tasks[id - 1]
     }
 
 }

@@ -51,11 +51,15 @@ project(":dataaccess-service") {
 project(":restapi") {
     dependencies {
         implementation(project(":shared"))
+        implementation(project(":dataaccess-service"))
+        implementation(project(":repository"))
     }
 }
 
 project(":web") {
     dependencies {
         implementation(project(":shared"))
+        implementation(project(":dataaccess-service"))
+        implementation(project(":repository"))
     }
 }

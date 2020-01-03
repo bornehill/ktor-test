@@ -14,6 +14,8 @@ import io.ktor.mustache.Mustache
 import io.ktor.sessions.SessionStorageMemory
 import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
+import com.myktortest.repos.TaskListRepositorySql
+import com.myktortest.dataaccess.TaskService
 
 fun Application.main() {
     install(Mustache) {
@@ -21,7 +23,8 @@ fun Application.main() {
     }
         
     install(Routing) {
-        runWeb()
+        val taskService = TaskService(TaskListRepositorySql())
+        runWeb(taskService)
         staticResources()
     }
     // Here we handle unhandled exceptions from routes

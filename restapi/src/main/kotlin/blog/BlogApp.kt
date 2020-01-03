@@ -17,13 +17,17 @@ import com.fasterxml.jackson.datatype.jsr310.*
 import java.io.*
 import com.myktortest.httpbin.*
 import com.myktortest.blog.routingapi.*
+import com.myktortest.repos.TaskListRepositorySql
+import com.myktortest.dataaccess.TaskService
 
 val headerContentV1 = ContentType("application", "vnd.todoapi.v1+json")
 
 fun Application.main() {
+    val taskService = TaskService(TaskListRepositorySql())
+
     install(Routing) {
         trace { application.log.trace(it.buildText()) }
-        blogRouting()
+        blogRouting(taskService)
     }
     install(DefaultHeaders)
     install(CallLogging)
