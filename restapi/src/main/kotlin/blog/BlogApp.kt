@@ -17,14 +17,27 @@ import com.fasterxml.jackson.datatype.jsr310.*
 import java.io.*
 import com.myktortest.httpbin.*
 import com.myktortest.blog.routingapi.*
-import com.myktortest.repos.TaskListRepositorySql
-import com.myktortest.dataaccess.TaskService
+import com.myktortest.repos.*
+import com.myktortest.dataaccess.*
+import org.koin.dsl.module.module
+import org.koin.ktor.ext.inject
+import org.koin.standalone.StandAloneContext
+
+val injectAppModule = module {
+    single<ITaskService> { TaskService(get()) }
+    single<ITaskListRepository> { TaskListRepositorySql() }
+}
 
 val headerContentV1 = ContentType("application", "vnd.todoapi.v1+json")
 
 fun Application.main() {
-    val taskService = TaskService(TaskListRepositorySql())
+    StandAloneContext.startKoin(listOf(injectAppModule))
 
+    val taskService: ITaskService by inject()
+    moduleWithDependencies(taskService)
+}
+
+fun Application.moduleWithDependencies(taskService: ITaskService) {
     install(Routing) {
         trace { application.log.trace(it.buildText()) }
         blogRouting(taskService)
