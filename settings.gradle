@@ -3,5 +3,6 @@ rootProject.name = "myTestKtor"
 include("restapi")
 include("web")
 include("shared")
+include("apiaccess-service")
 include("dataaccess-service")
 include("repository")

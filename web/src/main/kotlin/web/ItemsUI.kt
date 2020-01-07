@@ -12,9 +12,9 @@ import java.time.LocalDate
 import com.myktortest.shared.*
 import com.myktortest.web.viewmodels.*
 import io.ktor.mustache.MustacheContent
-import com.myktortest.dataaccess.ITaskService
+import com.myktortest.apiaccess.*
 
-fun Routing.runWeb(taskService: ITaskService) {
+fun Routing.runWeb(apiService: IAPIService) {
     route("api"){        
         get("allItems") {
             // when {
@@ -23,7 +23,7 @@ fun Routing.runWeb(taskService: ITaskService) {
 
             //todos = listOf(todo, todo)
 
-            val taskVM = TaskVM(taskService.getAll(), User("Kevin Smith"))
+            val taskVM = TaskVM(apiService.getAll(), User("Kevin Smith"))
             // getClientCredential("http://localhost:5000/connect/token", "todolistClient", "superSecretPassword", listOf("todolistAPI.read", "todolistAPI.write"))
             call.respond(
                 MustacheContent("allTasks.hbs", mapOf("tasks" to taskVM))

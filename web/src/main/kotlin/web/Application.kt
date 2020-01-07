@@ -14,17 +14,29 @@ import io.ktor.mustache.Mustache
 import io.ktor.sessions.SessionStorageMemory
 import io.ktor.sessions.Sessions
 import io.ktor.sessions.cookie
-import com.myktortest.repos.TaskListRepositorySql
-import com.myktortest.dataaccess.TaskService
+import com.myktortest.apiaccess.*
+import org.koin.dsl.module.module
+import org.koin.ktor.ext.inject
+import org.koin.standalone.StandAloneContext
+
+val injectAppModule = module {
+    single<IAPIService> { APIService() }
+}
 
 fun Application.main() {
+    StandAloneContext.startKoin(listOf(injectAppModule))
+
+    val apiService: IAPIService by inject()
+    moduleWithDependencies(apiService)
+}
+
+fun Application.moduleWithDependencies(apiService: IAPIService) {
     install(Mustache) {
         mustacheFactory = DefaultMustacheFactory("templates")
     }
         
     install(Routing) {
-        val taskService = TaskService(TaskListRepositorySql())
-        runWeb(taskService)
+        runWeb(apiService)
         staticResources()
     }
     // Here we handle unhandled exceptions from routes

@@ -48,6 +48,12 @@ project(":dataaccess-service") {
     }
 }
 
+project(":apiaccess-service") {
+    dependencies {
+        implementation(project(":shared"))
+    }
+}
+
 project(":restapi") {
     dependencies {
         implementation(project(":shared"))
@@ -59,7 +65,6 @@ project(":restapi") {
 project(":web") {
     dependencies {
         implementation(project(":shared"))
-        implementation(project(":dataaccess-service"))
-        implementation(project(":repository"))
+        implementation(project(":apiaccess-service"))
     }
 }
